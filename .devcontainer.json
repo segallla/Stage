@@ -1,0 +1,6 @@
+{
+  "name": "open-geo-copilot",
+  "dockerFile": "Dockerfile",
+  "extensions": ["ms-python.python", "esbenp.prettier-vscode"],
+  "postCreateCommand": "pip install -r backend/requirements.txt && npm ci --prefix frontend"
+}
