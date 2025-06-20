@@ -1,0 +1,14 @@
+# Node
+node_modules/
+# Python
+__pycache__/
+*.pyc
+# Env
+.env
+# Build
+frontend/dist/
+coverage/
+
+.DS_Store
+*.log
+__tests__/

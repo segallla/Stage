@@ -1,0 +1,30 @@
+version: '3.9'
+services:
+  db:
+    image: postgis/postgis:15-3.5
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-geodb}
+    ports:
+      - '5432:5432'
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/geodb
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+  frontend:
+    build: ./frontend
+    ports:
+      - '5173:80'
+    depends_on:
+      - backend
+  nginx-edge:
+    image: nginx:1.25
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - '8080:8080'
